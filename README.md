@@ -10,6 +10,13 @@ Not available
 2. run `npm install` to install all dependencies
 3. run `npm start`, the application will run at localhost:5000
 
+## Task selection
+
+- In the Projects tab, there are 3 columns: Defined, On going, Done
+- Defined tasks are tasks that can be selected and work on, each task represent 1 branch
+- Select a defined task by adding your name in the task, drag it to the On going column
+- After merged successfully, drag the task to the done column
+
 ## How to contribute as a team member
 
 1. Create a branch from branch 'main' named with related features that will be implemented (example: personal_carousel)
