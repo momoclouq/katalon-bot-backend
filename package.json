@@ -2,11 +2,21 @@
   "name": "katalon-bot-backend",
   "version": "0.0.0",
   "private": true,
+  "main": "dist/app.js",
   "scripts": {
-    "start": "node app.js"
+    "build": "tsc",
+    "start": "tsc & node .",
+    "dev": "tsc -w & nodemon ."
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "~4.16.1"
+    "express": "^4.18.1",
+    "helmet": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.38",
+    "nodemon": "^2.0.16",
+    "typescript": "^4.7.2"
   }
 }
