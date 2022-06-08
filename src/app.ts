@@ -1,3 +1,5 @@
+import 'dotenv/config';
+
 import { Request, Response } from "express";
 
 import express from 'express';
@@ -16,7 +18,7 @@ type Value = {
   value2: string;
 }
 
-app.get('/', (req: any, res: Response) => {
+app.get('/', (req: Request, res: Response) => {
   res.send('Hello Katalon bot backend');
 });
 
