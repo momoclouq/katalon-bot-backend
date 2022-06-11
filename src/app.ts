@@ -6,29 +6,29 @@ import express from 'express';
 import helmet from 'helmet';
 const cors = require('cors');
 
-const port = 5000;
+import mainRouter from './routes/main.route';
+import config from './config/config';
+
+const port = config.port;
 
 const app = express();
 
 app.use(helmet());
 app.use(cors());
 
-type Value = {
-  value1: string;
-  value2: string;
-}
-
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello Katalon bot backend');
-});
+app.use('/', mainRouter);
 
 app.get('/test', (req: Request, res: Response) => {
-  const value: Value = {
-    value1: "The heck",
-    value2: "The hell"
-  }
+  res.send('This is a test path');
+});
 
-  res.send(value);
+app.use((req: Request, res: Response) => {
+  res.send('Path not supported');
+});
+
+app.use((err: Error, req: Request, res: Response, next: Function) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
 });
 
 app.listen(port, () => {

@@ -8,7 +8,21 @@ Not available
 
 1. clone the repo
 2. run `npm install` to install all dependencies
-3. run `npm start`, the application will run at localhost:5000
+3. create a .env file with these configuration:
+```
+SEMANTIC_SEARCH_URL='https://katalonsemanticsearch.com'
+RECOGNITION_URL='https://jzenkd2s01.execute-api.us-east-1.amazonaws.com/default/intentRecognitionInvocation'
+```
+3. run `npm start`, the application will run at localhost:5000, to rerun the application, turn the server down and run `npm start` again
+4. (After the first run) To install new dependencies:
+```
+git fetch
+git pull
+npm install
+```
+
+## install packages with typescript
+- Just use `npm install`
 
 ## Task selection
 
