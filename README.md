@@ -21,6 +21,11 @@ git pull
 npm install
 ```
 
+## Linting and formatting
+Prettier and eslint: 
+- As the project has listed prettier/eslint as a dependency, you dont have to install manually
+- But install vs-code plugins: `Prettier - Code formatter.` and `ESLint` and run them on the project
+
 ## install packages with typescript
 - Just use `npm install`
 - If it does not work (project informs cannot find package), then install types manually: `npm install @types/...`

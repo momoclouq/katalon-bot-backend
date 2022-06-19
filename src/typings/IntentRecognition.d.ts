@@ -8,8 +8,8 @@ export type IntentCarouselItem = {
 }
 
 export type IntentRawResponse = {
-    ["_id"]: {
-        ["$oid"]: string
+    ['_id']: {
+        ['$oid']: string
     };
     id: string;
     response: string;

@@ -1,10 +1,10 @@
 import 'dotenv/config';
 
-import { Request, Response } from "express";
+import { Request, Response } from 'express';
 
 import express from 'express';
 import helmet from 'helmet';
-const cors = require('cors');
+import cors from 'cors';
 
 import mainRouter from './routes/main.route';
 import config from './config/config';
@@ -26,7 +26,7 @@ app.use((req: Request, res: Response) => {
   res.send('Path not supported');
 });
 
-app.use((err: Error, req: Request, res: Response, next: Function) => {
+app.use((err: Error, req: Request, res: Response, next: any) => {
   console.error(err.stack);
   res.status(500).send('Something broke!');
 });
