@@ -18,11 +18,13 @@ export const errorAxiosHandle = async (axiosCall: Function, params: any): Promis
             // The request was made but no response was received
             console.log("******Error - request*******");
             console.log(error.request);
+
             return error.request;
         } else {
             // Something happened in setting up the request that triggered an Error
             console.log("******Error - message*******");
             console.log('Error', error.message);
+            
             return error.message;
         }
     }

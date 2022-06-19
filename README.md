@@ -23,6 +23,7 @@ npm install
 
 ## install packages with typescript
 - Just use `npm install`
+- If it does not work (project informs cannot find package), then install types manually: `npm install @types/...`
 
 ## Task selection
 

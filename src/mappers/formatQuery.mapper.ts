@@ -11,7 +11,11 @@ export const formatIntent = (intent: IntentRawResponse): IntentFormattedResponse
 };
 
 export const formatSemanticSearch = (semanticSearch: SemanticRawResponse): SemanticFormattedResponse => {
-    return {
-        value: "not yet implemented"
-    };
+    return semanticSearch.map((item) => {
+        return {
+            mainMessage: item.title,
+            subMessage: item.sentence,
+            url: item.url
+        }
+    });
 };
