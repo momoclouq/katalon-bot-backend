@@ -1,7 +1,11 @@
-import { IntentFormattedResponse } from "./IntentRecognition";
-import { SemanticFormattedResponse } from "./SemanticSearch"
+import { IntentFormattedResponse } from './IntentRecognition';
+import { SemanticFormattedResponse } from './SemanticSearch'
 
 export type QueryResponse = {
-    semanticSearchData: SemanticFormattedResponse;
-    intentRecognitionData: IntentFormattedResponse;
+    semanticSearchData: SemanticFormattedResponse | ErrorResponse;
+    intentRecognitionData: IntentFormattedResponse | ErrorResponse;
+}
+
+export type ErrorResponse = {
+  error: string;
 }
