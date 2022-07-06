@@ -1,22 +1,24 @@
 export type IntentParams = {
-    query: string;
-}
+  query: string;
+};
 
 export type IntentCarouselItem = {
-    resource_title: string;
-    resource_url: string;
-}
+  resource_title: string;
+  resource_url: string;
+};
 
 export type IntentRawResponse = {
-    ['_id']: {
-        ['$oid']: string
-    };
+  classified: boolean;
+  response: {
     id: string;
     response: string;
     carousel?: IntentCarouselItem[];
-}
+  };
+};
 
 export type IntentFormattedResponse = {
-    mainMessage: string;
-    carouselCards?: IntentCarouselItem[];
-}
+  classified: boolean;
+  id: string;
+  mainMessage: string;
+  carouselCards?: IntentCarouselItem[];
+};

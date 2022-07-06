@@ -12,11 +12,13 @@ export const formatIntent = (
   intent: IntentRawResponse | ErrorResponse
 ): IntentFormattedResponse | ErrorResponse => {
   if ('error' in intent) return intent;
-  if (!intent.carousel) return null;
+  if (!intent.response.carousel) return null;
 
   return {
-    mainMessage: intent.response,
-    carouselCards: intent.carousel,
+    classified: intent.classified,
+    id: intent.response.id,
+    mainMessage: intent.response.response,
+    carouselCards: intent.response.carousel,
   };
 };
 
