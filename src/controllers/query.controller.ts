@@ -27,6 +27,11 @@ export const getQueryController = async (req: Request, res: Response, next: any)
     errorAxiosHandle(SemanticSearchApi.query, semanticParams)
   ]);
 
+  console.log({
+    intentRecognitionData: formatIntent(recognitionRawData as IntentRawResponse),
+    semanticSearchData: formatSemanticSearch(semanticRawData as SemanticRawResponse)
+  })
+
   const errorMessage = extractErrorMessage([recognitionRawData, semanticRawData]);
   if(errorMessage){
     res.status(500).json({

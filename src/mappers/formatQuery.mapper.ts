@@ -10,7 +10,7 @@ import {
 
 export const formatIntent = (
   intent: IntentRawResponse | ErrorResponse
-): IntentFormattedResponse | ErrorResponse => {
+): IntentFormattedResponse | ErrorResponse | null => {
   if ('error' in intent) return intent;
   if (!intent.response.carousel) return null;
 
