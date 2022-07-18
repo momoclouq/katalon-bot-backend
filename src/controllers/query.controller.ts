@@ -9,10 +9,13 @@ import { IntentParams, IntentRawResponse } from '../typings/IntentRecognition';
 import { QueryResponse } from '../typings/Query';
 import { SemanticParams, SemanticRawResponse } from '../typings/SemanticSearch';
 import { extractErrorMessage } from '../utils/extractError';
+import logger from '../utils/logging/Logger';
 
 export const getQueryController = async (req: Request, res: Response, next: any) => {
   let query = validator.trim(req.query.query as string);
   query = validator.escape(query);
+
+  logger.info('get query controller - called');
 
   const intentParams: IntentParams = {
     query: query
@@ -26,11 +29,6 @@ export const getQueryController = async (req: Request, res: Response, next: any)
     errorAxiosHandle(RecognitionApi.query, intentParams),
     errorAxiosHandle(SemanticSearchApi.query, semanticParams)
   ]);
-
-  console.log({
-    intentRecognitionData: formatIntent(recognitionRawData as IntentRawResponse),
-    semanticSearchData: formatSemanticSearch(semanticRawData as SemanticRawResponse)
-  })
 
   const errorMessage = extractErrorMessage([recognitionRawData, semanticRawData]);
   if(errorMessage){
@@ -46,6 +44,8 @@ export const getQueryController = async (req: Request, res: Response, next: any)
 }
 
 export const mockSuccessQueryController =  async (req: Request, res: Response, next: any) => {
+  logger.info('mock query controller called');
+  
   await new Promise(r => setTimeout(r, 2000));
  
   res.status(200).json({

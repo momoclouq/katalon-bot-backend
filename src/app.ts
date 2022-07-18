@@ -8,6 +8,7 @@ import cors from 'cors';
 
 import mainRouter from './routes/main.route';
 import config from './config/config';
+import logger from './utils/logging/Logger';
 
 const port = config.port;
 
@@ -15,6 +16,8 @@ const app = express();
 
 app.use(helmet());
 app.use(cors());
+
+logger.log('info', 'Application running');
 
 app.use('/', mainRouter);
 

@@ -1,6 +1,8 @@
 import { IntentRawResponse } from '../../typings/IntentRecognition';
 import { ErrorResponse } from '../../typings/Query';
 import { SemanticRawResponse } from '../../typings/SemanticSearch';
+import logger from '../../utils/logging/Logger';
+import { logMessageChain } from '../../utils/logging/logMessageChain';
 
 type AxiosOutput = IntentRawResponse | SemanticRawResponse | ErrorResponse;
 
@@ -9,32 +11,32 @@ export const errorAxiosHandle = async (axiosCall: any, params: any): Promise<Axi
     return await axiosCall(params);
   } catch (error) {
     if (error.response) {
-      console.log('******Error - response*******');
-      console.log('Target: ', error?.config?.url)
-      console.log('Data:', error?.response?.data);
-      console.log('Status:', error?.response?.status);
-      console.log('Headers:', error?.response?.headers);
-      console.log('---------------------');
+      const block = logMessageChain();
+      block.chain('Target', `${error?.config?.url}`);
+      block.chain('Data:', error?.response?.data);
+      block.chain('Status:', error?.response?.status);
+      block.chain('Headers:', error?.response?.headers);
+      logger.log('error', block.result());
 
       return {
         error: String(error?.response?.data)
       };
     } else if (error.request) {
       // The request was made but no response was received
-      console.log('******Error - request*******');
-      console.log('Target: ', error?.config?.url)
-      console.log('Request: ', error?.request);
-      console.log('---------------------');
+      const block = logMessageChain();
+      block.chain('Target: ', error?.config?.url);
+      block.chain('Request: ', error?.request);
+      logger.log('error', block.result());
 
       return {
         error: String(error?.request)
       };
     } else {
       // Something happened in setting up the request that triggered an Error
-      console.log('******Error - message*******');
-      console.log('Target: ', error?.config?.url)
-      console.log('Message: ', error?.message);
-      console.log('---------------------');
+      const block = logMessageChain();
+      block.chain('Target: ', error?.config?.url);
+      block.chain('Message: ', error?.message);
+      logger.log('error', block.result());
 
       return {
         error: String(error?.message)
