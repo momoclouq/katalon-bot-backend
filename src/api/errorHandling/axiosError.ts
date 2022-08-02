@@ -37,6 +37,7 @@ export const errorAxiosHandle = async (axiosCall: any, params: any): Promise<Axi
       block.chain('Target: ', error?.config?.url);
       block.chain('Message: ', error?.message);
       logger.log('error', block.result());
+      logger.log('error', 'Raw Error: ' + error);
 
       return {
         error: String(error?.message)

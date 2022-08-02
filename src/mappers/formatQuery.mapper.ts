@@ -12,7 +12,7 @@ export const formatIntent = (
   intent: IntentRawResponse | ErrorResponse
 ): IntentFormattedResponse | ErrorResponse | null => {
   if ('error' in intent) return intent;
-  if (!intent.response.carousel) return null;
+  if (!intent.response.carousel || !intent.classified) return null;
 
   return {
     classified: intent.classified,

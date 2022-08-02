@@ -1,4 +1,4 @@
-import e, { Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { errorAxiosHandle } from '../api/errorHandling/axiosError';
 import validator from 'validator';
 
@@ -14,6 +14,9 @@ import logger from '../utils/logging/Logger';
 export const getQueryController = async (req: Request, res: Response, next: any) => {
   let query = validator.trim(req.query.query as string);
   query = validator.escape(query);
+  query = encodeURI(query);
+
+  logger.info(query);
 
   logger.info('get query controller - called');
 
@@ -25,22 +28,28 @@ export const getQueryController = async (req: Request, res: Response, next: any)
     query: query
   };
 
-  const [recognitionRawData, semanticRawData] = await Promise.all([
-    errorAxiosHandle(RecognitionApi.query, intentParams),
-    errorAxiosHandle(SemanticSearchApi.query, semanticParams)
-  ]);
+  const recognitionRawData = await errorAxiosHandle(RecognitionApi.query, intentParams);
+  const recognitionformattedData = formatIntent(recognitionRawData as IntentRawResponse);
+  if (recognitionformattedData === null || 'error' in recognitionformattedData) {
+    const semanticRawData = await errorAxiosHandle(SemanticSearchApi.query, semanticParams);
 
-  const errorMessage = extractErrorMessage([recognitionRawData, semanticRawData]);
-  if(errorMessage){
-    res.status(500).json({
-      error: errorMessage
-    });
-  } else {
-    res.status(200).json({
-      intentRecognitionData: formatIntent(recognitionRawData as IntentRawResponse),
+    const errorMessage = extractErrorMessage([semanticRawData]);
+    if(errorMessage){
+      return res.status(500).json({
+        error: errorMessage
+      });
+    }
+
+    return res.status(200).json({
+      intentRecognitionData: null,
       semanticSearchData: formatSemanticSearch(semanticRawData as SemanticRawResponse)
-    } as QueryResponse);  
-  } 
+    } as QueryResponse)
+  }
+
+  res.status(200).json({
+    intentRecognitionData: recognitionformattedData,
+    semanticSearchData: null
+  } as QueryResponse);  
 }
 
 export const mockSuccessQueryController =  async (req: Request, res: Response, next: any) => {
